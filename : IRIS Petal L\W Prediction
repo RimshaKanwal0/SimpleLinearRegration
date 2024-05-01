@@ -1,0 +1,71 @@
+# Importing necessary libraries
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# Load the IRIS dataset
+df = pd.read_csv("IRIS.csv")
+
+# Displaying the first few rows of the dataset
+print("First few rows of the dataset:")
+print(df.head())
+
+# Selecting only 'Petal.Length' and 'Petal.Width' columns For SimpleLR
+df = df[['Petal.Length','Petal.Width']]
+
+# Displaying the selected columns
+print("\nSelected columns 'Petal.Length' and 'Petal.Width':")
+print(df.head())
+
+# Scatter plot of 'Petal.Length' vs 'Petal.Width'
+plt.figure(figsize=(8, 6))
+plt.scatter(df['Petal.Length'], df['Petal.Width'])
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.title('Scatter Plot of Petal Length vs Petal Width')
+plt.grid(True)
+plt.show()
+
+# Splitting the data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(df[['Petal.Length']], df['Petal.Width'], test_size=0.4, random_state=23)
+
+# Creating a Linear Regression model
+lr = LinearRegression()
+
+# Fitting the model
+lr.fit(X_train, y_train)
+
+# Intercept and Coefficient of the linear regression model
+intercept = lr.intercept_
+coefficient = lr.coef_[0]
+
+print("\nIntercept of the Linear Regression model:", intercept)
+print("Coefficient of the Linear Regression model:", coefficient)
+
+# Predictions on training data
+y_pred_train = lr.predict(X_train)
+
+# Plotting the regression line on training data
+plt.figure(figsize=(8, 6))
+plt.scatter(X_train, y_train)
+plt.plot(X_train, y_pred_train, color='red')
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.title('Linear Regression on Training Data')
+plt.grid(True)
+plt.show()
+
+# Predictions on test data
+y_pred_test = lr.predict(X_test)
+
+# Plotting the regression line on test data
+plt.figure(figsize=(8, 6))
+plt.scatter(X_test, y_test)
+plt.plot(X_test, y_pred_test, color='red')
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.title('Linear Regression on Test Data')
+plt.grid(True)
+plt.show()
