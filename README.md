@@ -1,4 +1,4 @@
-# Regration:
+# Regression:
 Regression is a statistical method used to model the relationship between a dependent variable and one or more independent variables. 
 
 # Regression techniques:
